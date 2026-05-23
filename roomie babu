@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urgent Question! 🏠</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 60px;
+            align-items: center;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background-color: #45a049;
+        }
+
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+            /* Initial positioning on the right side of the container */
+            right: 60px; 
+            transition: all 0.1s ease-out;
+        }
+
+        /* Success screen style */
+        .success-message {
+            display: none;
+        }
+
+        .success-message h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <div id="questionContent">
+            <h1>Be My Roommate? 🏠🤝</h1>
+            <p>Think about it: a good singer by ur side, someone to yell at the bugs, saaf safai bhi rakhunga. What do you say?</p>
+            
+            <div class="btn-container">
+                <button id="yesBtn">Yes!</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+
+        <div id="successContent" class="success-message">
+            <h2>Let's gooo! 🎉🥳</h2>
+            <p>Excellent choice. I knew you were smart!</p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const questionContent = document.getElementById('questionContent');
+        const successContent = document.getElementById('successContent');
+
+        // Function to move the "No" button to a random spot on the screen
+        function flyAway() {
+            // Get screen dimensions, leaving a safe margin so it doesn't leave the screen entirely
+            const padding = 100;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+            // Generate random coordinates
+            // Ensure coordinates are at least 'padding' pixels away from the top/left edge
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            // Switch button to fixed position so it can move anywhere on the screen
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Trigger the move on both mouse hover (desktop) and touch start (mobile)
+        noBtn.addEventListener('mouseover', flyAway);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevents accidental clicks on mobile
+            flyAway();
+        });
+
+        // When they finally click the only real option left
+        yesBtn.addEventListener('click', () => {
+            questionContent.style.display = 'none';
+            successContent.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
